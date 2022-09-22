@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelAtivoPassivoAnualXLS" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="b9e9e743-d620-4265-ab82-4a4815076837">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.071794405000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IMAGE_DIRECTORY" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String ("C:\\Performer\\workspace_FAPEU\\Contabil\\war\\images\\")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ANO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[Integer.parseInt("2016")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EMPRESA" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[Integer.parseInt("1")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Performer\\workspace_FAPEU\\Contabil\\war\\reports\\jrxml\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+2019 as nu_ano,
+consulta.cd_tipo_lancamento,
+consulta.nm_tipo_lancamento,
+consulta.saldo_jan,
+consulta.saldo_fev,
+consulta.saldo_mar,
+consulta.saldo_abr,
+consulta.saldo_mai,
+consulta.saldo_jun,
+consulta.saldo_jul,
+consulta.saldo_ago,
+consulta.saldo_set,
+consulta.saldo_out,
+consulta.saldo_nov,
+consulta.saldo_dez,
+abs(
+(coalesce(consulta.saldo_jan,0)+
+coalesce(consulta.saldo_fev,0)+
+coalesce(consulta.saldo_mar,0)+
+coalesce(consulta.saldo_abr,0)+
+coalesce(consulta.saldo_mai,0)+
+coalesce(consulta.saldo_jun,0)+
+coalesce(consulta.saldo_jul,0)+
+coalesce(consulta.saldo_ago,0)+
+coalesce(consulta.saldo_set,0)+
+coalesce(consulta.saldo_out,0)+
+coalesce(consulta.saldo_nov,0)+
+coalesce(consulta.saldo_dez,0))) as saldo_anual,
+
+
+abs(consulta.saldo_jan) saldo_jan_rel,
+abs(consulta.saldo_fev) saldo_fev_rel ,
+abs(consulta.saldo_mar) saldo_mar_rel,
+abs(consulta.saldo_abr) saldo_abr_rel,
+abs(consulta.saldo_mai) saldo_mai_rel,
+abs(consulta.saldo_jun) saldo_jun_rel,
+abs(consulta.saldo_jul) saldo_jul_rel,
+abs(consulta.saldo_ago) saldo_ago_rel,
+abs(consulta.saldo_set) saldo_set_rel,
+abs(consulta.saldo_out) saldo_out_rel,
+abs(consulta.saldo_nov) saldo_nov_rel,
+abs(consulta.saldo_dez) saldo_dez_rel,
+consulta.nm_empresa_instalacao,
+consulta.fones_empresa_instalacao,
+consulta.de_email_empresa_instalacao,
+consulta.nu_cnpj_empresa_instalacao,
+consulta.de_endereco_empresa_instalacao,
+consulta.nm_empresa
+from (
+SELECT
+DISTINCT
+en_tipo_lancamento.cd_tipo_lancamento,
+en_tipo_lancamento.nm_tipo_lancamento,
+COALESCE(saldo_do_tipo(1,2019,1,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_jan,
+COALESCE(saldo_do_tipo(1,2019,2,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_fev,
+COALESCE(saldo_do_tipo(1,2019,3,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_mar,
+COALESCE(saldo_do_tipo(1,2019,4,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_abr,
+COALESCE(saldo_do_tipo(1,2019,5,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_mai,
+COALESCE(saldo_do_tipo(1,2019,6,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_jun,
+COALESCE(saldo_do_tipo(1,2019,7,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_jul,
+COALESCE(saldo_do_tipo(1,2019,8,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_ago,
+COALESCE(saldo_do_tipo(1,2019,9,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_set,
+COALESCE(saldo_do_tipo(1,2019,10,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_out,
+COALESCE(saldo_do_tipo(1,2019,11,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_nov,
+COALESCE(saldo_do_tipo(1,2019,12,en_tipo_lancamento.cd_tipo_lancamento),0) as saldo_dez,
+"public".en_parametro.nm_empresa_instalacao,
+"public".en_parametro.fones_empresa_instalacao,
+"public".en_parametro.de_email_empresa_instalacao,
+"public".en_parametro.nu_cnpj_empresa_instalacao,
+"public".en_parametro.de_endereco_empresa_instalacao,
+"public".en_empresa.nm_empresa
+FROM
+en_ativo_passivo inner join en_historico_lancamento on  en_historico_lancamento.cd_historico_lancamento = en_ativo_passivo.cd_historico_lancamento
+INNER JOIN en_tipo_lancamento ON  en_tipo_lancamento.cd_tipo_lancamento = en_historico_lancamento.cd_tipo_lancamento
+inner join "public".en_empresa on "public".en_empresa.cd_empresa = "public".en_ativo_passivo.cd_empresa
+cross join "public".en_parametro
+WHERE
+Extract('Year' from dt_historico) = 2019
+ and en_ativo_passivo.cd_empresa = 1
+ ) consulta
+ order by consulta.nm_tipo_lancamento]]>
+	</queryString>
+	<field name="nu_ano" class="java.lang.Integer"/>
+	<field name="cd_tipo_lancamento" class="java.lang.Integer"/>
+	<field name="nm_tipo_lancamento" class="java.lang.String"/>
+	<field name="saldo_jan" class="java.lang.Float"/>
+	<field name="saldo_fev" class="java.lang.Float"/>
+	<field name="saldo_mar" class="java.lang.Float"/>
+	<field name="saldo_abr" class="java.lang.Float"/>
+	<field name="saldo_mai" class="java.lang.Float"/>
+	<field name="saldo_jun" class="java.lang.Float"/>
+	<field name="saldo_jul" class="java.lang.Float"/>
+	<field name="saldo_ago" class="java.lang.Float"/>
+	<field name="saldo_set" class="java.lang.Float"/>
+	<field name="saldo_out" class="java.lang.Float"/>
+	<field name="saldo_nov" class="java.lang.Float"/>
+	<field name="saldo_dez" class="java.lang.Float"/>
+	<field name="saldo_anual" class="java.lang.Float"/>
+	<field name="saldo_jan_rel" class="java.lang.Float"/>
+	<field name="saldo_fev_rel" class="java.lang.Float"/>
+	<field name="saldo_mar_rel" class="java.lang.Float"/>
+	<field name="saldo_abr_rel" class="java.lang.Float"/>
+	<field name="saldo_mai_rel" class="java.lang.Float"/>
+	<field name="saldo_jun_rel" class="java.lang.Float"/>
+	<field name="saldo_jul_rel" class="java.lang.Float"/>
+	<field name="saldo_ago_rel" class="java.lang.Float"/>
+	<field name="saldo_set_rel" class="java.lang.Float"/>
+	<field name="saldo_out_rel" class="java.lang.Float"/>
+	<field name="saldo_nov_rel" class="java.lang.Float"/>
+	<field name="saldo_dez_rel" class="java.lang.Float"/>
+	<field name="nm_empresa_instalacao" class="java.lang.String"/>
+	<field name="fones_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_email_empresa_instalacao" class="java.lang.String"/>
+	<field name="nu_cnpj_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_endereco_empresa_instalacao" class="java.lang.String"/>
+	<field name="nm_empresa" class="java.lang.String"/>
+	<variable name="SALDO_JAN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_jan}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_FEV" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_fev}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_MAR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_mar}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_ABR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_abr}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_MAI" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_mai}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_JUN" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_jun}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_JUL" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_jul}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_AGO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_ago}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_SET" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_set}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_OUT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_out}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_NOV" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_nov}]]></variableExpression>
+	</variable>
+	<variable name="SALDO_DEZ" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo_dez}]]></variableExpression>
+	</variable>
+	<group name="ANO">
+		<groupExpression><![CDATA[$F{nu_ano}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<staticText>
+					<reportElement mode="Opaque" x="114" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="80899b18-0c66-40e6-8f9a-9faa5e6b3c93"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Janeiro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="164" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="da1c3648-3405-48dd-b3df-2ce31ad57047"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Fevereiro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="214" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="c94dfac1-e7b4-4209-a8b7-2ba5a611d0c9"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Março]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="264" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="f6272522-8b60-4c35-ae01-3070b84365ed"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Abril]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="314" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="a1f847b2-3db4-4cbc-bcfe-4905989797bd"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Maio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="364" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="6f616219-bc79-4aee-9d0d-ac37ce0c552d"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Junho]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="414" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="f550dd71-1f41-466a-9985-91a2ec40deb6"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Julho]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="464" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="782997df-3e6d-4c6f-9660-1d6b70e5bec9"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Agosto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="514" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="7c2f1ea5-dc9e-42ed-a52f-27b236e70f48"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Setembro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="564" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="a600fa01-589a-4041-8b9b-9331008a9047"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Outubro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="614" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="52007b43-65a5-4562-bba8-01659b10eb65"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Novembro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="664" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="749a3d7d-7e88-4c96-b8b2-34a2d173d240"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Dezembro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="114" height="12" backcolor="#CCCCCC" uuid="264f2b79-2039-4a22-8864-b5090252904d"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Lancamento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="714" y="0" width="67" height="12" backcolor="#CCCCCC" uuid="4b420af7-d110-4a26-a10f-61ed7af0e7a7"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Total Anual]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="34">
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="114" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="2467f182-915d-4682-abc9-78470fc5fd49"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="114" height="12" uuid="0ce02160-1931-4091-b8d4-376bd20b47b1"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Saldo do mês"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="164" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="dbd9fc00-8c1b-4265-85da-a90bf94da0b2"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_FEV}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="214" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="ee4b0a04-d034-4df6-b690-f500a02e90ea"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_MAR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="264" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="c250e9dd-d5c1-4f20-97c3-bef30703ef92"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_ABR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="314" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="2ca4d082-b2ed-4921-abb6-3453efcc96b9"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_MAI}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="364" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="75b97bf1-3680-404d-aaa9-d61a69d2564c"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JUN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="414" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="892cfe30-0cab-4a8f-8b5c-e8cd445dbe30"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JUL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="464" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="5c9aba40-bb74-4fdb-be85-b615cd9462be"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_AGO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="514" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="56634e21-1db1-4326-b517-22f3ff135a3a"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_SET}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="564" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="5879541a-f331-4e42-9ea1-3465b0ffc93d"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_OUT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="614" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="f8127ead-f8b1-4eb1-97d3-f27d32140d9c"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_NOV}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="664" y="0" width="50" height="12" backcolor="#CCCCCC" uuid="8d6acc9e-c560-4f7e-bd9a-fe1d5606c84b"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_DEZ}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="114" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="70ee0b9e-df63-4381-8591-db711d678346"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="164" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="32a71b10-e7bf-47a7-bf77-2c58a3f52309"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="214" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="7eb4a97f-1350-4927-90e2-6583a442fd1c"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="264" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="66c186e0-2ee9-4d30-8871-3420b46a04ed"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="314" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="a3483848-5eff-49d7-8e2b-f5059c0705ad"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="364" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="7915f67a-7bd3-44f4-8143-bc9115829455"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="414" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="c5964879-e3be-453c-b5ff-7cb6cde65dd1"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN}).add($V{SALDO_JUL})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="464" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="1dd2932f-1554-4c08-b494-2f31e4a97198"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN}).add($V{SALDO_JUL}).add($V{SALDO_AGO})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="514" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="ce2920fb-6ce6-4675-acbe-8b42964b7d33"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN}).add($V{SALDO_JUL}).add($V{SALDO_AGO}).add($V{SALDO_SET})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="564" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="439d3a59-f44c-42f2-8f7b-2fbc8d16ada1"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN}).add($V{SALDO_JUL}).add($V{SALDO_AGO}).add($V{SALDO_SET}).add($V{SALDO_OUT})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="614" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="77aedfe4-50a1-40da-bb89-6ac59c1d50ca"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN}).add($V{SALDO_JUL}).add($V{SALDO_AGO}).add($V{SALDO_SET}).add($V{SALDO_OUT}).add($V{SALDO_NOV})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="664" y="12" width="50" height="12" backcolor="#CCCCCC" uuid="9d98c545-39dc-42c5-9bab-ff7cd8c92f10"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SALDO_JAN}.add($V{SALDO_FEV}).add($V{SALDO_MAR}).add($V{SALDO_ABR}).add($V{SALDO_MAI}).add($V{SALDO_JUN}).add($V{SALDO_JUL}).add($V{SALDO_AGO}).add($V{SALDO_SET}).add($V{SALDO_OUT}).add($V{SALDO_NOV}).add($V{SALDO_DEZ})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="12" width="114" height="12" uuid="fc159272-c93e-45b6-9570-94d69b30e173"/>
+					<box leftPadding="2" bottomPadding="0" rightPadding="2">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Evolução Saldo Mensal"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="12">
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="114" y="0" width="50" height="12" uuid="609be0eb-1890-4ce6-93a9-45415b8b4f07"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_jan_rel} == 0 ? "" : $F{saldo_jan_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="164" y="0" width="50" height="12" uuid="a0661c74-bc89-4ab2-b7b0-d4900c701161"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_fev_rel} == 0 ? "" : $F{saldo_fev_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="214" y="0" width="50" height="12" uuid="5d112bc3-9fd3-4020-ad4f-8fc38bfe15c9"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_mar_rel} == 0 ? "" : $F{saldo_mar_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="264" y="0" width="50" height="12" uuid="58a6eb0d-4085-468e-bd29-0e611345b103"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_abr_rel} == 0 ? "" : $F{saldo_abr_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="314" y="0" width="50" height="12" uuid="6b4979f0-5eef-4467-ac1d-416e0db16b4b"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_mai_rel} == 0 ? "" : $F{saldo_mai_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="364" y="0" width="50" height="12" uuid="48c93dc7-3c46-4839-b034-dc46e8b7bb21"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_jun_rel} == 0 ? "" : $F{saldo_jun_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="414" y="0" width="50" height="12" uuid="9a28e9f2-0a4f-48ac-bd44-029d7b351fbf"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_jul_rel} == 0 ? "" : $F{saldo_jul_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="464" y="0" width="50" height="12" uuid="79f5a487-bcf7-46b2-967f-80d37f59fb97"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_ago_rel} == 0 ? "" : $F{saldo_ago_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="514" y="0" width="50" height="12" uuid="3caa2321-c7a0-4512-adbb-90d7e1d45d8b"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_set_rel} == 0 ? "" : $F{saldo_set_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="564" y="0" width="50" height="12" uuid="18523cc4-a853-4ba3-b0d6-d0e8e23b0b59"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_out_rel} == 0 ? "" : $F{saldo_out_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="614" y="0" width="50" height="12" uuid="407f236a-1699-45a8-aa82-497d506dafd0"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_nov_rel} == 0 ? "" : $F{saldo_nov_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="664" y="0" width="50" height="12" uuid="8d7c6845-ef6b-464c-b6ee-a4a7cb2a5430"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_dez_rel} == 0 ? "" : $F{saldo_dez_rel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="714" y="0" width="67" height="12" uuid="10fb4c91-823e-4e14-b1b8-7566b0831d16"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo_anual}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="114" height="12" uuid="1faf50e9-1404-43d0-a679-2b4db3891bcb"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_tipo_lancamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement x="11" y="0" width="771" height="19" uuid="b6eeab3b-2ce6-4118-897c-d2ae77d35c38"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FATURAMENTO ANUAL " + $F{nu_ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="22" width="771" height="19" uuid="c02600d1-2a19-48ab-82d0-5e7baaeaa87b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Empresa: " + $F{nm_empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

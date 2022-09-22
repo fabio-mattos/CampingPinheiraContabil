@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelLancamentosAtivosPassivosPorTipoXLS" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="b9e9e743-d620-4265-ab82-4a4815076837">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="2.0886240847078326"/>
+	<property name="ireport.x" value="244"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IMAGE_DIRECTORY" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String ("C:\\Performer\\workspace_FAPEU\\Contabil\\war\\images\\")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PERIODO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EMPRESA" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[Integer.parseInt("1")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Performer\\workspace_FAPEU\\Contabil\\war\\reports\\jrxml\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+"public".en_empresa.nm_empresa,
+"public".en_tipo_lancamento.nm_tipo_lancamento,
+"public".en_parametro.nm_empresa_instalacao,
+"public".en_parametro.fones_empresa_instalacao,
+"public".en_parametro.de_email_empresa_instalacao,
+"public".en_parametro.nu_cnpj_empresa_instalacao,
+"public".en_parametro.de_endereco_empresa_instalacao,
+sum(coalesce("public".en_ativo_passivo.vl_debito,0)) AS debi,
+sum(coalesce("public".en_ativo_passivo.vl_credito,0)) AS cred,
+sum(
+CASE "public".en_ativo_passivo.vl_debito
+WHEN 0 THEN NULL
+ELSE "public".en_ativo_passivo.vl_debito END) AS  vl_debito,
+
+sum(CASE "public".en_ativo_passivo.vl_credito
+WHEN 0 THEN NULL
+ELSE "public".en_ativo_passivo.vl_credito END) AS  vl_credito
+
+FROM
+"public".en_ativo_passivo
+INNER JOIN "public".en_historico_lancamento ON ("public".en_ativo_passivo.cd_historico_lancamento = "public".en_historico_lancamento.cd_historico_lancamento)
+INNER JOIN "public".en_empresa ON ("public".en_ativo_passivo.cd_empresa = "public".en_empresa.cd_empresa)
+INNER JOIN "public".en_tipo_lancamento ON ("public".en_ativo_passivo.cd_empresa = "public".en_tipo_lancamento.cd_empresa AND "public".en_historico_lancamento.cd_tipo_lancamento = "public".en_tipo_lancamento.cd_tipo_lancamento)
+
+cross join "public".en_parametro
+WHERE
+"public".en_ativo_passivo.fg_excluido IS NULL AND
+"public".en_ativo_passivo.cd_empresa = 2
+GROUP BY "public".en_empresa.nm_empresa,
+"public".en_tipo_lancamento.nm_tipo_lancamento,
+"public".en_parametro.nm_empresa_instalacao,
+"public".en_parametro.fones_empresa_instalacao,
+"public".en_parametro.de_email_empresa_instalacao,
+"public".en_parametro.nu_cnpj_empresa_instalacao,
+"public".en_parametro.de_endereco_empresa_instalacao
+
+ORDER BY
+"public".en_tipo_lancamento.nm_tipo_lancamento]]>
+	</queryString>
+	<field name="nm_empresa" class="java.lang.String"/>
+	<field name="nm_tipo_lancamento" class="java.lang.String"/>
+	<field name="nm_empresa_instalacao" class="java.lang.String"/>
+	<field name="fones_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_email_empresa_instalacao" class="java.lang.String"/>
+	<field name="nu_cnpj_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_endereco_empresa_instalacao" class="java.lang.String"/>
+	<field name="debi" class="java.math.BigDecimal"/>
+	<field name="cred" class="java.math.BigDecimal"/>
+	<field name="vl_debito" class="java.math.BigDecimal"/>
+	<field name="vl_credito" class="java.math.BigDecimal"/>
+	<variable name="variable1" class="java.lang.String"/>
+	<variable name="TOTAL_CRED" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{cred}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_DEBI" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{debi}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band height="12">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="365" height="12" backcolor="#CCCCCC" uuid="c94dfac1-e7b4-4209-a8b7-2ba5a611d0c9"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tipo Histórico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="365" y="0" width="85" height="12" backcolor="#CCCCCC" uuid="6f616219-bc79-4aee-9d0d-ac37ce0c552d"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Crédito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="450" y="0" width="85" height="12" backcolor="#CCCCCC" uuid="a1f847b2-3db4-4cbc-bcfe-4905989797bd"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Débito]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="12">
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="365" height="12" uuid="5d112bc3-9fd3-4020-ad4f-8fc38bfe15c9"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_tipo_lancamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="450" y="0" width="85" height="12" uuid="6b4979f0-5eef-4467-ac1d-416e0db16b4b"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_debito}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="365" y="0" width="85" height="12" uuid="48c93dc7-3c46-4839-b034-dc46e8b7bb21"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_credito}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band height="24">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="365" y="0" width="85" height="12" backcolor="#CCCCCC" uuid="ee44a400-bdab-487a-8167-b8787db266b7"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_CRED}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="450" y="0" width="85" height="12" backcolor="#CCCCCC" uuid="3c0adc86-b959-46bd-9da4-73fbb4c4641c"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_DEBI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="450" y="12" width="85" height="12" backcolor="#CCCCCC" uuid="c1b73647-82bc-4da0-9f5f-2949bd78f0be"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_CRED}.subtract( $V{TOTAL_DEBI} )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern=" #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="365" y="12" width="85" height="12" backcolor="#CCCCCC" uuid="c949c1d0-a7fc-4e53-bfa1-aa3fe352cb94"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Saldo:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

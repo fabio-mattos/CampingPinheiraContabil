@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelGraficoFaturamento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="782" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="b9e9e743-d620-4265-ab82-4a4815076837">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.569214188360502"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IMAGE_DIRECTORY" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String ("C:\\Performer\\workspace_FAPEU\\Contabil\\war\\images\\")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+"public".en_faturamento_mensal.cd_empresa,
+"public".en_faturamento_mensal.nu_mes,
+"public".en_faturamento_mensal.nu_ano,
+"public".en_faturamento_mensal.vl_faturamento,
+"public".en_faturamento_mensal.vl_despesas,
+"public".en_empresa.nm_empresa,
+"public".en_mes.nm_mes,
+"public".en_mes.sg_mes,
+"public".en_parametro.nm_empresa_instalacao,
+"public".en_parametro.fones_empresa_instalacao,
+"public".en_parametro.de_email_empresa_instalacao,
+"public".en_parametro.nu_cnpj_empresa_instalacao,
+"public".en_parametro.de_endereco_empresa_instalacao
+FROM
+"public".en_faturamento_mensal
+INNER JOIN "public".en_empresa ON "public".en_empresa.cd_empresa = "public".en_faturamento_mensal.cd_empresa
+INNER JOIN "public".en_mes ON "public".en_mes.nu_mes = "public".en_faturamento_mensal.nu_mes
+cross join
+"public".en_parametro
+where nu_ano = 2018]]>
+	</queryString>
+	<field name="cd_empresa" class="java.lang.Integer"/>
+	<field name="nu_mes" class="java.lang.Integer"/>
+	<field name="nu_ano" class="java.lang.Integer"/>
+	<field name="vl_faturamento" class="java.math.BigDecimal"/>
+	<field name="vl_despesas" class="java.math.BigDecimal"/>
+	<field name="nm_empresa" class="java.lang.String"/>
+	<field name="nm_mes" class="java.lang.String"/>
+	<field name="sg_mes" class="java.lang.String"/>
+	<field name="nm_empresa_instalacao" class="java.lang.String"/>
+	<field name="fones_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_email_empresa_instalacao" class="java.lang.String"/>
+	<field name="nu_cnpj_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_endereco_empresa_instalacao" class="java.lang.String"/>
+	<variable name="SOMA_FATURAMENTO" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_faturamento}]]></variableExpression>
+	</variable>
+	<variable name="SOMA_DESPESAS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_despesas}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band height="108">
+			<textField>
+				<reportElement x="3" y="54" width="532" height="20" uuid="b6eeab3b-2ce6-4118-897c-d2ae77d35c38"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GRÁFICO EVOLUÇÃO FATURAMENTO X DESPESAS "]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="54" y="20" width="488" height="15" uuid="de2c29c2-f2d7-4ff3-87a1-169109fed016"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{de_endereco_empresa_instalacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" mode="Transparent" x="54" y="5" width="488" height="15" uuid="8a7c1db1-a46d-4b88-a260-4dd94e8ea187"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_empresa_instalacao} + " - CNPJ: " + $F{nu_cnpj_empresa_instalacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="54" y="35" width="488" height="15" uuid="730a10fc-d868-4a3e-bef9-2a467a100222"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fones: " +  $F{fones_empresa_instalacao} + " Email: " + $F{de_email_empresa_instalacao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-1" x="3" y="50" width="530" height="1" uuid="e40188e8-f08c-47cc-b8e6-6acd82324753"/>
+			</line>
+			<image>
+				<reportElement x="1" y="16" width="51" height="44" uuid="f688ee9b-c6b3-4dd8-8a2d-a6d4e60969c3"/>
+				<imageExpression><![CDATA[$P{IMAGE_DIRECTORY} + "logoRel.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="96" width="192" height="12" backcolor="#CCCCCC" uuid="8d207d4d-340e-4675-908a-f255bc9ac13e"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="193" y="96" width="76" height="12" backcolor="#CCCCCC" uuid="e63cfdf7-3d65-4068-b6f0-35dd18fea03e"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ano]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="269" y="96" width="131" height="12" backcolor="#CCCCCC" uuid="e96ecb59-8959-4ed0-a95f-e82d51d6f666"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total Faturamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="96" width="131" height="12" backcolor="#CCCCCC" uuid="d31ea551-6b3e-40e1-a19d-4400b54fecb9"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total Despesas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="74" width="532" height="20" uuid="c02600d1-2a19-48ab-82d0-5e7baaeaa87b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_empresa} + " Ano  " + $F{nu_ano}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="12">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="192" height="12" uuid="f875161c-05d0-4e35-acea-f787a33c6895"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_mes}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="193" y="0" width="76" height="12" uuid="e3da174e-7724-4abb-937f-c8078f9922c4"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nu_ano}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="269" y="0" width="131" height="12" uuid="609be0eb-1890-4ce6-93a9-45415b8b4f07"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_faturamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="400" y="0" width="131" height="12" uuid="c0170694-48b3-4568-a54a-3dbeb905f14f"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_despesas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField evaluationTime="Report">
+				<reportElement x="493" y="5" width="40" height="14" uuid="094fc6b8-33b8-4bf5-9a82-7fa5029f2822"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="5" width="80" height="14" uuid="62d0e333-6653-4c2e-ab4e-71bc24d5084d"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página:  "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="3" y="5" width="122" height="15" uuid="b8f92cdd-fb8d-4a53-aa7d-e03e1e2e0087"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Emitido via Contabil em:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="128" y="6" width="100" height="14" uuid="77cb40c8-a825-4521-8165-f9301cb495ae"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="15">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="128" y="1" width="100" height="14" uuid="b7ec4314-0a91-4bcd-8a6f-66b1555ce77d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="3" y="0" width="122" height="15" uuid="417e592f-2420-4a3e-8d57-c5ff5f636441"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Emitido via Contabil em:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="0" width="80" height="14" uuid="d33f93a2-1bad-4b91-bd52-224ca3585fef"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página:  "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="493" y="0" width="40" height="14" uuid="dbca3de7-61ff-4df0-8f39-16d58b8f9714"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="244">
+			<lineChart>
+				<chart>
+					<reportElement x="3" y="13" width="532" height="221" uuid="a91286b0-dd03-4aff-8ded-4f8fa60c774e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Despesas"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{sg_mes}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{vl_despesas}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Faturamento"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{sg_mes}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{vl_faturamento}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="269" y="0" width="131" height="12" backcolor="#CCCCCC" uuid="979fef31-3c04-445e-befd-8cc636ff8dac"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOMA_FATURAMENTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="400" y="0" width="131" height="12" backcolor="#CCCCCC" uuid="65048692-a703-4f16-b774-c3811f181a80"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SOMA_DESPESAS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

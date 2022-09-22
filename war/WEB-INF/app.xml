@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<host-app version="1.0" name="Contabil">
+	<forms>
+
+		<!-- Package main -->
+		<form id="MainForm" class="main.StartUp" main="true" />
+
+
+		<!-- Meus módulos -->
+		
+		<form id="MainReport" class="performer.contabil.report.MainReport">
+			<attribute id="title" value="MainReport" />
+		</form>
+		<form id="RelHistoricoAnual" class="performer.contabil.report.RelHistoricoAnualController">
+			<attribute id="title" value="RelHistoricoAnual" />
+		</form>
+		<form id="RelGraficoTipoLancamento" class="performer.contabil.report.RelGraficoTipoLancamentoController">
+			<attribute id="title" value="RelGraficoTipoLancamento" />
+		</form>
+		<form id="RelGraficoMensalTipoLancamento" class="performer.contabil.report.RelGraficoMensalTipoLancamentoController">
+			<attribute id="title" value="RelGraficoMensalTipoLancamento" />
+		</form>
+		<form id="RelLancamentosAtivosPassivos" class="performer.contabil.report.RelLancamentosAtivosPassivosController">
+			<attribute id="title" value="RelLancamentosAtivosPassivos" />
+		</form>
+		
+		<form id="RelConferenciaTotais" class="performer.contabil.report.RelConferenciaTotaisController">
+			<attribute id="title" value="RelConferenciaTotais" />
+		</form>
+		<form id="RelAtivoPassivoAnual" class="performer.contabil.report.RelAtivoPassivoAnualController">
+			<attribute id="title" value="RelAtivoPassivoAnual" />
+		</form>
+		<form id="RelTotalPorTipo" class="performer.contabil.report.RelTotalPorTipoController">
+			<attribute id="title" value="RelTotalPorTipo" />
+		</form>
+		<form id="RelGraficoSaldoAnual" class="performer.contabil.report.RelGraficoSaldoAnualController">
+			<attribute id="title" value="RelGraficoSaldoAnual" />
+		</form>
+	   <form id="EsqueciMinhaSenha"
+			class="performer.contabil.viewcontroller.EsqueciMinhaSenhaController">
+			<attribute id="title" value="EsqueciMinhaSenha" />
+		</form>
+		<form id="CadHistoricoAnual"
+			class="performer.contabil.viewcontroller.CadHistoricoAnualController">
+			<attribute id="title" value="CadHistoricoAnual" />
+		</form>
+		<form id="CadTipoLancamento"
+			class="performer.contabil.viewcontroller.CadTipoLancamentoController">
+			<attribute id="title" value="CadTipoLancamento" />
+		</form>
+		<form id="SelecionaEmpresa" class="performer.contabil.viewcontroller.SelecionaEmpresaController">
+			<attribute id="title" value="SelecionaEmpresa" />
+		</form>
+		
+		<form id="CadHistoricoLancamentos" class="performer.contabil.viewcontroller.CadHistoricoLancamentosController">
+			<attribute id="title" value="CadHistoricoLancamentos" />
+		</form>
+		<form id="MainCadastros" class="performer.contabil.viewcontroller.MainCadastrosController">
+			<attribute id="title" value="MainCadastros" />
+		</form>
+		<form id="CadParametros" class="performer.contabil.viewcontroller.CadParametrosController">
+			<attribute id="title" value="CadParametros" />
+		</form>
+		<form id="CadBoletos" class="performer.contabil.viewcontroller.CadBoletosController">
+			<attribute id="title" value="CadBoletos" />
+		</form>
+        <form id="CadFornecedor" class="performer.contabil.viewcontroller.CadFornecedorController">
+			<attribute id="title" value="CadFornecedor" />
+		</form>
+		<form id="AlteraSenha" class="performer.contabil.viewcontroller.AlteraSenhaController">
+			<attribute id="title" value="AlteraSenha" />
+		</form>
+
+		<form id="CadUsuario" class="performer.contabil.viewcontroller.CadUsuarioController">
+			<attribute id="title" value="CadUsuario" />
+		</form>
+		<form id="CadAtivosPassivos" class="performer.contabil.viewcontroller.CadAtivosPassivosController">
+			<attribute id="title" value="CadAtivosPassivos" />
+		</form>
+		 
+		<form id="CadFaturamentoMensal" class="performer.contabil.viewcontroller.CadFaturamentoMensalController">
+			<attribute id="title" value="CadFaturamentoMensal" />
+		</form>
+			
+		
+		<form id="RelGraficoFaturamento" class="performer.contabil.report.RelGraficoFaturamentoController">
+			<attribute id="title" value="RelGraficoFaturamento" />
+		</form>
+		<form id="RelFaturamentoAnual" class="performer.contabil.report.RelFaturamentoAnualController">
+			<attribute id="title" value="RelFaturamentoAnual" />
+		</form>	
+		
+	
+		
+	</forms>
+</host-app>

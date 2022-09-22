@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sofia>
+	<appName>Contabil</appName>
+	<appPath>e:\eclipse\workspace_performer\Contabil</appPath>
+	<appClassPath>e:\eclipse\workspace_performer\Contabil\build\classes</appClassPath>	
+	<connectionFileName>Contabil</connectionFileName>
+	<persistenceFolderPath>e:\eclipse\workspace_performer\Contabil\src\performer\contabil</persistenceFolderPath>
+	<propertiesPath>e:\eclipse\workspace_performer\Contabil\war\WEB-INF\properties</propertiesPath>
+	<databaseLibPath>e:\eclipse\workspace_performer\Contabil\war\WEB-INF\lib</databaseLibPath>
+	<salmonLibPath>E:\eclipse\eclipse-jee-2020-09\eclipse\plugins\SOFIAPlugin_1.0.0</salmonLibPath>
+</sofia>

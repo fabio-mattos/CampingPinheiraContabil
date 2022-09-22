@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReportGraficoFaturamentoAnual" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="df1968ea-9f76-4280-8974-4ca8e16cce09">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EMPRESA" class="java.lang.Integer"/>
+	<parameter name="ANO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT 'Jan' as mes, sum(vl_jan_credito-vl_jan_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Fev' as mes, sum(vl_fev_credito-vl_fev_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Mar' as mes, sum(vl_mar_credito-vl_mar_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Abr' as mes, sum(vl_abr_credito-vl_abr_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Mai' as mes, sum(vl_mai_credito-vl_mai_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Jun' as mes, sum(vl_jun_credito-vl_jun_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Jul' as mes, sum(vl_jul_credito-vl_jul_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Ago' as mes, sum(vl_ago_credito-vl_ago_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Set' as mes, sum(vl_set_credito-vl_set_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Out' as mes, sum(vl_out_credito-vl_out_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Nov' as mes, sum(vl_nov_credito-vl_nov_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}
+union all
+SELECT 'Dez' as mes, sum(vl_dez_credito-vl_dez_debito) as saldo
+from en_historico_anual
+where cd_empresa = $P{EMPRESA}
+and nu_ano = $P{ANO}]]>
+	</queryString>
+	<field name="mes" class="java.lang.String"/>
+	<field name="saldo" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="254" splitType="Stretch">
+			<lineChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="254" uuid="08f205c6-3f2d-4ef4-a8a2-a6a57af03add"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Saldo Mensal"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{mes}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{saldo}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
+</jasperReport>

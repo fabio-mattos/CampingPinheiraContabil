@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelGraficoTipoLancamentoMensal" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="b9e9e743-d620-4265-ab82-4a4815076837">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="2.5272351424964765"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="121"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="IMAGE_DIRECTORY" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new String ("C:\\Performer\\workspace_FAPEU\\Contabil\\war\\images\\")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QDADE_VALOR1" class="java.lang.String">
+		<defaultValueExpression><![CDATA["vALOR"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QDADE_VALOR2" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Valor"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 	en_empresa.nm_empresa, 	en_parametro.nm_empresa_instalacao, 	en_parametro.fones_empresa_instalacao, 	en_parametro.de_email_empresa_instalacao, 	en_parametro.nu_cnpj_empresa_instalacao, 	en_parametro.de_endereco_empresa_instalacao, 	consulta.ano_mes1, 	consulta.ano1, 	consulta.ano_mes2, 	consulta.ano2, 	consulta.nm_historico1, 	consulta.nm_historico2, 	consulta.nm_ano1, 	consulta.nm_ano2 FROM 	( SELECT 	'01'  AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 1,13) AS ano1, 	'01' AS ano_mes2, 	soma_quantidade_por_tipo_historico(2 , 2018, 1,13)  AS ano2, 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'02' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 2,13)  , 	'02' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 2,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'03' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 3,13)  , 	'03' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 3,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'04' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 4,13)  , 	'04' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 4,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'05' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 5,13)  , 	'05' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 5,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'06' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 6,13)  , 	'06' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 6,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'07' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 7,13)  , 	'07' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 7,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'08' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 8,13)  , 	'08' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 8,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'09' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 9,13)  , 	'09' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 9,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'10' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 10,13)  , 	'10' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 10,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'11' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 11,13)  , 	'11' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 11,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 union all SELECT 	'12' AS ano_mes1, 	soma_quantidade_por_tipo_historico(2 , 2018, 12,13)  , 	'12' AS ano_mes2, 	 soma_quantidade_por_tipo_historico(2 , 2019, 12,13)  , 	'LUZ' AS nm_historico1, 	'LUZ' AS nm_historico2, 	'2018' AS nm_ano1, '2019' AS nm_ano2 		)AS consulta 	INNER JOIN en_empresa ON en_empresa.cd_empresa = 1 	CROSS JOIN en_parametro ]]>
+	</queryString>
+	<field name="nm_empresa" class="java.lang.String"/>
+	<field name="nm_empresa_instalacao" class="java.lang.String"/>
+	<field name="fones_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_email_empresa_instalacao" class="java.lang.String"/>
+	<field name="nu_cnpj_empresa_instalacao" class="java.lang.String"/>
+	<field name="de_endereco_empresa_instalacao" class="java.lang.String"/>
+	<field name="ano_mes1" class="java.lang.String"/>
+	<field name="ano1" class="java.lang.Integer"/>
+	<field name="ano_mes2" class="java.lang.String"/>
+	<field name="ano2" class="java.lang.Integer"/>
+	<field name="nm_historico1" class="java.lang.String"/>
+	<field name="nm_historico2" class="java.lang.String"/>
+	<field name="nm_ano1" class="java.lang.String"/>
+	<field name="nm_ano2" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band height="109">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="54" y="20" width="488" height="15" uuid="de2c29c2-f2d7-4ff3-87a1-169109fed016"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{de_endereco_empresa_instalacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" mode="Transparent" x="54" y="5" width="488" height="15" uuid="8a7c1db1-a46d-4b88-a260-4dd94e8ea187"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_empresa_instalacao} + " - CNPJ: " + $F{nu_cnpj_empresa_instalacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="54" y="35" width="488" height="15" uuid="730a10fc-d868-4a3e-bef9-2a467a100222"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fones: " +  $F{fones_empresa_instalacao} + " Email: " + $F{de_email_empresa_instalacao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-1" x="3" y="50" width="530" height="1" uuid="e40188e8-f08c-47cc-b8e6-6acd82324753"/>
+			</line>
+			<image>
+				<reportElement x="1" y="16" width="51" height="44" uuid="f688ee9b-c6b3-4dd8-8a2d-a6d4e60969c3"/>
+				<imageExpression><![CDATA[$P{IMAGE_DIRECTORY} + "logoRel.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="97" width="157" height="12" backcolor="#CCCCCC" uuid="8d207d4d-340e-4675-908a-f255bc9ac13e"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tipo Lançamento1]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="60" width="532" height="20" uuid="c02600d1-2a19-48ab-82d0-5e7baaeaa87b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="157" y="97" width="28" height="12" backcolor="#CCCCCC" uuid="4f46b1fc-d882-4d7e-9df5-7d032729a72c"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ano1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="340" y="97" width="119" height="12" backcolor="#CCCCCC" uuid="574b0099-219a-4e93-9fd5-030c74ec0874"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tipo Lançamento1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="294" y="97" width="23" height="12" backcolor="#CCCCCC" uuid="3c4540da-1714-4ec1-b253-d05cab62515c"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ano]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="211" y="97" width="83" height="12" backcolor="#CCCCCC" uuid="7cafeff1-f6d7-487a-b27f-e2fa896e0dc2"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{QDADE_VALOR1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="459" y="97" width="75" height="12" backcolor="#CCCCCC" uuid="c1bac906-c2f5-412e-9862-a4cf9e49a67c"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{QDADE_VALOR2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="97" width="26" height="12" backcolor="#CCCCCC" uuid="a08dbc2b-a4f5-4819-88b4-8f4d452c42ef"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="317" y="97" width="23" height="12" backcolor="#CCCCCC" uuid="cea0cf1f-9f4f-4b98-ba47-5214652e548a"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="12">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="157" height="12" uuid="f875161c-05d0-4e35-acea-f787a33c6895"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_historico1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="211" y="0" width="83" height="12" uuid="ff2190e2-8b89-4f21-8798-e6a0950bc5de"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="157" y="0" width="28" height="12" uuid="db3f4b56-28a1-4d86-ae6b-9aed39fb4e74"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_ano1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="340" y="0" width="119" height="12" uuid="7177b447-23e6-4696-b98a-2ce67240f67e"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_historico1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="75" height="12" uuid="dc4c07de-0988-4530-a3ca-a3be1cfb82eb"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="294" y="0" width="23" height="12" uuid="69eb076c-b750-411e-bb29-9cbc9173f9e5"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_ano2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="185" y="0" width="26" height="12" uuid="c7f9ab62-609e-470e-acd6-94751b9825fe"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano_mes1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="317" y="0" width="23" height="12" uuid="9d5b573c-3de7-4608-b6bb-80a2f1b1705b"/>
+				<box leftPadding="2" bottomPadding="0" rightPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano_mes2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField evaluationTime="Report">
+				<reportElement x="493" y="5" width="40" height="14" uuid="094fc6b8-33b8-4bf5-9a82-7fa5029f2822"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="5" width="80" height="14" uuid="62d0e333-6653-4c2e-ab4e-71bc24d5084d"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página:  "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="3" y="5" width="122" height="15" uuid="b8f92cdd-fb8d-4a53-aa7d-e03e1e2e0087"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Emitido via Contabil em:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="128" y="6" width="100" height="14" uuid="77cb40c8-a825-4521-8165-f9301cb495ae"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="15">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="128" y="1" width="100" height="14" uuid="b7ec4314-0a91-4bcd-8a6f-66b1555ce77d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="3" y="0" width="122" height="15" uuid="417e592f-2420-4a3e-8d57-c5ff5f636441"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Emitido via Contabil em:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="0" width="80" height="14" uuid="d33f93a2-1bad-4b91-bd52-224ca3585fef"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página:  "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="493" y="0" width="40" height="14" uuid="dbca3de7-61ff-4df0-8f39-16d58b8f9714"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="244">
+			<barChart>
+				<chart>
+					<reportElement x="1" y="0" width="532" height="244" uuid="fdf6b3f8-c9d4-4901-b1df-199c6f608f21"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{nm_ano1}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{ano_mes1}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{ano1}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{nm_ano2}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{ano_mes2}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{ano2}]]></valueExpression>
+						<labelExpression><![CDATA[$F{nm_ano2}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
